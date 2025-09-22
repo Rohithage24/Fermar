@@ -16,9 +16,9 @@ const upload = multer({ storage });
 
 exports.uploadImage = [
   upload.single("file"),
-  
+
   async (req, res) => {
-  console.log(process.env.PYTHON_URL);
+    if (!fs.existsSync("uploads")) fs.mkdirSync("uploads");
 
     try {
       if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
@@ -26,25 +26,27 @@ exports.uploadImage = [
       const formData = new FormData();
       formData.append("file", fs.createReadStream(req.file.path));
 
-      const fastApiRes = await axios.post(`https://py-db.onrender.com/upload-soil`, formData, {
+      const fastApiRes = await axios.post("https://py-db.onrender.com/upload-soil/", formData, {
         headers: formData.getHeaders(),
       });
 
+      const soilData = fastApiRes.data.soil_data;
+
       const soilReport = new SoilReport({
         imagePath: req.file.path,
-        soil_ph: fastApiRes.data.soil_ph,
-        nitrogen: fastApiRes.data.nitrogen,
-        phosphorus: fastApiRes.data.phosphorus,
-        potassium: fastApiRes.data.potassium,
-        organic_matter: fastApiRes.data.organic_matter,
-        electrical_conductivity: fastApiRes.data.electrical_conductivity,
+        soil_ph: soilData.soil_ph,
+        nitrogen: soilData.nitrogen,
+        phosphorus: soilData.phosphorus,
+        potassium: soilData.potassium,
+        organic_matter: soilData.organic_matter,
+        electrical_conductivity: soilData.electrical_conductivity,
       });
 
       await soilReport.save();
 
       res.json({
         msg: "✅ Soil report uploaded and saved",
-        soil_data: fastApiRes.data,
+        soil_data: soilData,
         soilReportId: soilReport._id,
       });
     } catch (err) {
@@ -53,3 +55,4 @@ exports.uploadImage = [
     }
   },
 ];
+

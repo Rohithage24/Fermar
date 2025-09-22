@@ -34,8 +34,6 @@
 #     return {"success": True, "data": extracted_data}
 
 
-
-
 # api.py - AgroSanga API
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -49,14 +47,10 @@ from main import IntegratedAgriculturalSystem
 # Initialize FastAPI app
 app = FastAPI(title="🌾 AgroSanga API")
 
-# CORS settings
-origins = [
-    "http://127.0.0.1:8000"
-]
-
+# ✅ Allow all origins for deployment (or specify your frontend domain)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # change to ["https://your-frontend.onrender.com"] for production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -86,7 +80,7 @@ class PredictYieldInput(BaseModel):
 # Root endpoint
 @app.get("/")
 def root():
-    return {"message": "🌾 AgroSanga API is running"}
+    return {"message": "🌾 AgroSanga API is running on Render!"}
 
 # Upload soil image and extract data
 @app.post("/upload-soil/")

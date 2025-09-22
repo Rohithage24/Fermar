@@ -16,14 +16,17 @@ const upload = multer({ storage });
 
 exports.uploadImage = [
   upload.single("file"),
+  
   async (req, res) => {
+  console.log(process.env.PYTHON_URL);
+
     try {
       if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
 
       const formData = new FormData();
       formData.append("file", fs.createReadStream(req.file.path));
 
-      const fastApiRes = await axios.post(`${process.env.PYTHON_URL}/upload-soil`, formData, {
+      const fastApiRes = await axios.post(`https://py-db.onrender.com/upload-soil`, formData, {
         headers: formData.getHeaders(),
       });
 

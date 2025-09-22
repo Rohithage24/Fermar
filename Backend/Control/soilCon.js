@@ -3,6 +3,7 @@ const fs = require("fs");
 const axios = require("axios");
 const multer = require("multer");
 const FormData = require("form-data");
+require("dotenv").config();
 
 const SoilReport = require("../model/SoilReport"); // fixed path
 
@@ -22,7 +23,7 @@ exports.uploadImage = [
       const formData = new FormData();
       formData.append("file", fs.createReadStream(req.file.path));
 
-      const fastApiRes = await axios.post("http://127.0.0.1:8000/upload-soil", formData, {
+      const fastApiRes = await axios.post(`${process.env.PYTHON_URL}/upload-soil`, formData, {
         headers: formData.getHeaders(),
       });
 

@@ -1,6 +1,6 @@
 const axios = require("axios");
 const Prediction = require("../model/pridation");
-
+require("dotenv").config();
 exports.savePrediction = async (req, res) => {
   console.log(req.body);
 
@@ -36,7 +36,7 @@ exports.savePrediction = async (req, res) => {
       irrigation_amount: Number(irrigationAmount),
     };
 
-    const fastApiRes = await axios.post("http://127.0.0.1:8000/predict-yield/", payload);
+    const fastApiRes = await axios.post( `${process.env.PYTHON_URL}/predict-yield/`, payload);
 
     const prediction = new Prediction({
       soilData,

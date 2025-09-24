@@ -9,6 +9,7 @@ const SoilReportSchema = new mongoose.Schema({
   organic_matter: { type: Number },
   electrical_conductivity: { type: Number },
   createdAt: { type: Date, default: Date.now },
+  userID:{type:String},
 });
 
 module.exports = mongoose.models.SoilReport || mongoose.model("SoilReport", SoilReportSchema);

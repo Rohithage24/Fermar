@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import Chatbot from "../components/ChatBot/Chatbot"; // no extra spaces
 
+
 function HeroSection() {
   const { language, setLanguage, translations } = useLanguage();
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [hoveredLang, setHoveredLang] = useState(null);
+ 
+  
 
   const heroStyle = {
     display: "flex",

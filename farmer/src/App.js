@@ -11,6 +11,10 @@ import { useLanguage } from "./context/LanguageContext";
 import MobileLogin from './components/MobileLogin';
 import UploadSoil from './components/UploadSoil';
 import './App.css'
+import RegistrationForm from "./components/RegistrationForm";
+import Login from "./components/Login";
+import LogoutButton from "./components/LogoutButton";
+
 
 const About = () => {
   const { translations } = useLanguage();
@@ -54,7 +58,7 @@ function App() {
           }
         `}
       </style>
-
+          
       <Navbar />
 
       <div>
@@ -74,7 +78,12 @@ function App() {
           />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<MobileLogin />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registation" element={<RegistrationForm />} />
+          <Route path="/logout" element={<LogoutButton />} />
+          <Route path="/registation" element={<RegistrationForm />} />
+
+
           <Route path="/soile" element={<UploadSoil />} />
 
 

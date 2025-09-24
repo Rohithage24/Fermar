@@ -1,8 +1,14 @@
+// src/components/Navbar.js
 import React from "react";
-import { useLanguage } from "../context/LanguageContext"; // adjust path if needed
+import { Link } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+import LogoutButton from "./LogoutButton";
 
 const Navbar = () => {
-  const { translations } = useLanguage(); // get translations for current language
+  const [auth] = useAuth();
+  console.log(auth);
+  
+  const user = auth.user;
 
   const navbarStyle = {
     display: "flex",
@@ -29,7 +35,7 @@ const Navbar = () => {
   const navLinksStyle = {
     listStyle: "none",
     display: "flex",
-    gap: "2rem",
+    gap: "1.5rem",
     margin: 0,
     padding: 0,
     alignItems: "center",
@@ -38,48 +44,39 @@ const Navbar = () => {
   const linkStyle = {
     color: "white",
     fontWeight: 500,
-    position: "relative",
     cursor: "pointer",
-    transition: "color 0.3s",
-  };
-
-  const linkHoverStyle = {
-    color: "#86efac",
-  };
-
-  const linkUnderlineStyle = {
-    content: '""',
-    position: "absolute",
-    width: "0%",
-    height: "2px",
-    bottom: "-3px",
-    left: 0,
-    backgroundColor: "#86efac",
-    transition: "width 0.3s",
+    textDecoration: "none",
   };
 
   return (
     <nav style={navbarStyle}>
-      <h1 style={logoStyle}>{translations.welcome}</h1>
+      <h1 style={logoStyle}>Farmer Portal</h1>
       <ul style={navLinksStyle}>
-        {[translations.home, translations.cropsPage, translations.aboutTitle, translations.contactTitle].map(
-          (link, i) => (
-            <li
-              key={i}
-              style={linkStyle}
-              onMouseOver={(e) => {
-                e.target.style.color = "#86efac";
-                e.target.firstChild.style.width = "100%";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.color = "white";
-                e.target.firstChild.style.width = "0%";
-              }}
-            >
-              {link}
-              <span style={linkUnderlineStyle}></span>
+        <li>
+          <Link to="/" style={linkStyle}>
+            Home
+          </Link>
+        </li>
+
+        {!user && (
+          <>
+            <li>
+              <Link to="/registation" style={linkStyle}>
+                Register
+              </Link>
             </li>
-          )
+            <li>
+              <Link to="/login" style={linkStyle}>
+                Login
+              </Link>
+            </li>
+          </>
+        )}
+
+        {user && (
+          <li>
+            <LogoutButton />
+          </li>
         )}
       </ul>
     </nav>

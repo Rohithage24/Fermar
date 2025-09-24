@@ -2,18 +2,28 @@ const express = require("express");
 const cors = require("cors");
 const userCon = require("./Control/userCon");
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
 const { mongodb } = require("./config/mongodb");
 const soilCon = require("./Control/soilCon");
 const predictionCon = require("./Control/predictionCon");
 
 
 const server = express();
-server.use(cors());
+server.use(cors({
+  origin: "http://localhost:3000", // frontend URL
+  credentials: true // allow cookies
+}));
 server.use(express.json());
+server.use(cookieParser());
 
 
-server.post("/send-otp", userCon.sendOtp);
-server.post("/verify-otp", userCon.verifyOtp);
+server.post("/register", userCon.register);
+server.post("/login", userCon.login);
+server.get("/profile", userCon.authMiddleware);
+server.get("/logout", userCon.logout);
+server.get("/checkAuth", userCon.checkAuth);
+
+
 
 
 server.post("/soil-Reprot" , soilCon.uploadImage);

@@ -72,6 +72,24 @@ async def upload_soil(file: UploadFile = File(...)):
 @app.post("/predict-yield/")
 async def predict_yield(input_data: PredictYieldInput):
     try:
+        # Check valid crop & season
+        if input_data.crop_type not in agri.crop_encoder.classes_:
+            raise HTTPException(status_code=400, detail=f"Invalid crop type: {input_data.crop_type}")
+        if input_data.season not in agri.season_encoder.classes_:
+            raise HTTPException(status_code=400, detail=f"Invalid season: {input_data.season}")
+
+        predicted_yield = agri.predict_yield(input_data.dict())
+        return {"predicted_yield": float(predicted_yield), "unit": "kg/ha"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
+
+
+# @app.post("/predict-yield/")
+# async def predict_yield(input_data: PredictYieldInput):
+    try:
         if input_data.crop_type not in agri.crop_encoder.classes_:
             raise HTTPException(
                 status_code=400,

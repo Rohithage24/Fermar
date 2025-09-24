@@ -6,6 +6,7 @@ const PredictionSchema = new mongoose.Schema({
   prediction: { type: Object },
   soilReportId: { type: mongoose.Schema.Types.ObjectId, ref: "SoilReport" },
   createdAt: { type: Date, default: Date.now },
+  userID: {type:String},
 });
 
 module.exports = mongoose.models.Prediction || mongoose.model("Prediction", PredictionSchema);

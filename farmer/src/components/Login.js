@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext"; // import your AuthContext
 
 const Login = () => {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  const [auth, setAuth] = useAuth(); // use AuthContext
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,7 +30,12 @@ const Login = () => {
         token: res.data.token || "",
       };
 
-      localStorage.setItem("auth", JSON.stringify(userData));
+      // Update AuthContext
+      setAuth(userData);
+
+      // Optional: save in localStorage (already handled in AuthContext)
+      // localStorage.setItem("auth", JSON.stringify(userData));
+
       navigate("/"); // redirect to home after login
     } catch (err) {
       console.error(err);
@@ -60,9 +68,7 @@ const Login = () => {
             Login
           </button>
         </form>
-        {message && (
-          <p style={styles.errorMessage}>{message}</p>
-        )}
+        {message && <p style={styles.errorMessage}>{message}</p>}
       </div>
     </div>
   );

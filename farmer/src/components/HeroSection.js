@@ -2,12 +2,17 @@
 import React, { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import Chatbot from "../components/ChatBot/Chatbot";
+import { useAuth } from "../auth/AuthContext";
 
 function HeroSection() {
   const { language, setLanguage, translations } = useLanguage();
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [hoveredLang, setHoveredLang] = useState(null);
+  const [auth] = useAuth();
+
+  console.log(auth || "null");
+  
 
   const toggleLanguageOptions = () => setShowLanguageOptions(!showLanguageOptions);
 
@@ -49,20 +54,20 @@ function HeroSection() {
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0,0,0,0.4)", // keep overlay as before
+    backgroundColor: "rgba(0,0,0,0.4)",
     backdropFilter: "blur(2px)",
     zIndex: 1,
   };
 
   const headingStyle = {
     fontSize: "3rem",
-    color: "#FFE100", // text color updated
+    color: "#FFE100",
     zIndex: 2,
   };
 
   const textStyle = {
     fontSize: "1.3rem",
-    color: "#FFE100", // text color updated
+    color: "#FFE100",
     zIndex: 2,
   };
 
@@ -81,20 +86,6 @@ function HeroSection() {
 
   const buttonHoverStyle = {
     backgroundColor: "#45a049",
-  };
-
-  const languageOptionsStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    display: "flex",
-    gap: "10px",
-    backgroundColor: "rgba(255,255,255,0.95)",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
-    zIndex: 3,
   };
 
   const languageButtonStyle = {
@@ -132,35 +123,52 @@ function HeroSection() {
         <p style={textStyle}>{translations.description}</p>
 
         {/* Language selector button */}
-        <button
-          onClick={toggleLanguageOptions}
-          style={hovered ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
-          {translations.chooseLang}
-        </button>
+        <div style={{ position: "relative", display: "inline-block", marginTop: "20px", zIndex: 2 }}>
+          <button
+            onClick={toggleLanguageOptions}
+            style={hovered ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            {translations.chooseLang}
+          </button>
 
-        {/* Language options */}
-        {showLanguageOptions && (
-          <div style={languageOptionsStyle}>
-            {["English", "Hindi", "Marathi", "Odia"].map((lang) => (
-              <button
-                key={lang}
-                onClick={() => handleLanguageSelect(lang)}
-                style={
-                  hoveredLang === lang
-                    ? { ...languageButtonStyle, ...languageButtonHoverStyle }
-                    : languageButtonStyle
-                }
-                onMouseEnter={() => setHoveredLang(lang)}
-                onMouseLeave={() => setHoveredLang(null)}
-              >
-                {lang}
-              </button>
-            ))}
-          </div>
-        )}
+          {/* Dropdown options */}
+          {showLanguageOptions && (
+            <div
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                marginTop: "5px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "5px",
+                backgroundColor: "rgba(255,255,255,0.95)",
+                padding: "10px",
+                borderRadius: "5px",
+                boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
+                minWidth: "150px",
+              }}
+            >
+              {["English", "Hindi", "Marathi", "Odia"].map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => handleLanguageSelect(lang)}
+                  style={
+                    hoveredLang === lang
+                      ? { ...languageButtonStyle, ...languageButtonHoverStyle }
+                      : languageButtonStyle
+                  }
+                  onMouseEnter={() => setHoveredLang(lang)}
+                  onMouseLeave={() => setHoveredLang(null)}
+                >
+                  {lang}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
       {/* Chatbot */}

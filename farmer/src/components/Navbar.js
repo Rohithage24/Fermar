@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
+import { useAuth } from "../auth/AuthContext";
+import LogoutButton from "./LogoutButton";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -8,16 +10,9 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const navigate = useNavigate();
 
-  // Updated links array with Register
-  const links = [
-    { label: " Home ", path: "/", isButton: true }, // Home as button
-    { label: translations.cropsPage, path: "/crops" },
-    { label: translations.aboutTitle, path: "/about", isButton: true },
-    { label: translations.contactTitle, path: "/contact", isButton: true },
-    { label: "Login", path: "/login", isButton: true },
-    { label: "Register", path: "/register", isButton: true },
-  ];
+  const [auth] = useAuth(); // get logged-in user info
 
+  // Update mobile view on resize
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", handleResize);
@@ -110,6 +105,20 @@ const Navbar = () => {
     zIndex: 999,
   };
 
+  // Links for non-logged-in users
+  const links = [
+    { label: "Home", path: "/", isButton: true },
+    { label: translations.cropsPage, path: "/crops" },
+    { label: translations.aboutTitle, path: "/about", isButton: true },
+    { label: translations.contactTitle, path: "/contact", isButton: true },
+  ];
+
+  // Login/Register links only for guests
+  const guestLinks = [
+    { label: "Login", path: "/login", isButton: true },
+    { label: "Register", path: "/registation", isButton: true },
+  ];
+
   return (
     <nav style={navbarStyle}>
       <h1 style={logoStyle} onClick={() => navigate("/")}>
@@ -133,15 +142,34 @@ const Navbar = () => {
                   {link.label}
                 </button>
               ) : (
-                <span
-                  style={linkStyle}
-                  onClick={() => navigate(link.path)}
-                >
+                <span style={linkStyle} onClick={() => navigate(link.path)}>
                   {link.label}
                 </span>
               )}
             </li>
           ))}
+
+          {/* Conditionally show Logout or Login/Register */}
+          {auth.user ? (
+            <li>
+              <LogoutButton />
+            </li>
+          ) : (
+            guestLinks.map((link, i) => (
+              <li key={i}>
+                <button
+                  style={linkButtonStyle}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.opacity = linkButtonHoverStyle.opacity)
+                  }
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
+                  onClick={() => navigate(link.path)}
+                >
+                  {link.label}
+                </button>
+              </li>
+            ))
+          )}
         </ul>
       )}
 
@@ -186,6 +214,31 @@ const Navbar = () => {
               )}
             </li>
           ))}
+
+          {/* Conditionally show Logout or Login/Register in mobile */}
+          {auth.user ? (
+            <li>
+              <LogoutButton />
+            </li>
+          ) : (
+            guestLinks.map((link, i) => (
+              <li key={i} style={{ marginBottom: "0.5rem" }}>
+                <button
+                  style={{ ...linkButtonStyle, width: "100%" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.opacity = linkButtonHoverStyle.opacity)
+                  }
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    navigate(link.path);
+                  }}
+                >
+                  {link.label}
+                </button>
+              </li>
+            ))
+          )}
         </ul>
       )}
     </nav>

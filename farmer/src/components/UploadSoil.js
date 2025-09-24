@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAuth } from "../auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function UploadSoil() {
   const [soilData, setSoilData] = useState(null);
@@ -20,11 +22,14 @@ function UploadSoil() {
   const [rainfall, setRainfall] = useState("");
   const [humidity, setHumidity] = useState("");
   const [irrigationAmount, setIrrigationAmount] = useState("");
+  const navigate = useNavigate();
+  const [auth] = useAuth();
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
   // Upload soil report
   const handleUpload = async () => {
+
     if (!file) return setError("Please upload a file");
     setUploading(true);
     setError("");
@@ -53,6 +58,10 @@ function UploadSoil() {
     if (!soilData) return setError("Please upload soil report first");
     setPredicting(true);
     setError("");
+
+    if(!auth.user){
+      navigate('/login')
+    }
 
     try {
       const response = await axios.post("http://localhost:5000/preduct", {

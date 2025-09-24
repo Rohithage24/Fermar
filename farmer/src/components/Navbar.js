@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-import { useAuth } from "../auth/AuthContext"; // auth context
-import LogoutButton from "./LogoutButton";
 
 const Navbar = () => {
   const { translations } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const navigate = useNavigate();
-  const [auth] = useAuth();
-  const user = auth.user;
+
+  // Updated links array with Register
+  const links = [
+    { label: " Home ", path: "/", isButton: true }, // Home as button
+    { label: translations.cropsPage, path: "/crops" },
+    { label: translations.aboutTitle, path: "/about", isButton: true },
+    { label: translations.contactTitle, path: "/contact", isButton: true },
+    { label: "Login", path: "/login", isButton: true },
+    { label: "Register", path: "/register", isButton: true },
+  ];
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -57,7 +63,6 @@ const Navbar = () => {
     fontWeight: 500,
     cursor: "pointer",
     padding: "0.3rem 0",
-    textDecoration: "none",
   };
 
   const linkButtonStyle = {
@@ -105,65 +110,42 @@ const Navbar = () => {
     zIndex: 999,
   };
 
-  // links for non-authenticated users
-  const guestLinks = [
-    { label: translations.home, path: "/" },
-    { label: translations.cropsPage, path: "/crops" },
-    { label: translations.aboutTitle, path: "/about" },
-    { label: translations.contactTitle, path: "/contact" },
-    { label: "Register", path: "/registation" },
-    { label: "Login", path: "/login" },
-  ];
-
-  // links for logged-in users
-  const authLinks = [
-    { label: translations.home, path: "/" },
-    { label: translations.cropsPage, path: "/crops" },
-    { label: translations.aboutTitle, path: "/about" },
-    { label: translations.contactTitle, path: "/contact" },
-  ];
-
-  const activeLinks = user ? authLinks : guestLinks;
-
   return (
     <nav style={navbarStyle}>
       <h1 style={logoStyle} onClick={() => navigate("/")}>
         AgroSanga
       </h1>
 
+      {/* Desktop Links */}
       {!isMobile && (
         <ul style={navLinksStyle}>
-          {activeLinks.map((link, i) => {
-            const isButton =
-              [translations.aboutTitle, translations.contactTitle, "Login", "Register"].includes(link.label);
-            return (
-              <li key={i}>
-                {isButton ? (
-                  <button
-                    style={linkButtonStyle}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = linkButtonHoverStyle.opacity)}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
-                    onClick={() => navigate(link.path)}
-                  >
-                    {link.label}
-                  </button>
-                ) : (
-                  <span style={linkStyle} onClick={() => navigate(link.path)}>
-                    {link.label}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-
-          {user && (
-            <li>
-              <LogoutButton />
+          {links.map((link, i) => (
+            <li key={i}>
+              {link.isButton ? (
+                <button
+                  style={linkButtonStyle}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.opacity = linkButtonHoverStyle.opacity)
+                  }
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
+                  onClick={() => navigate(link.path)}
+                >
+                  {link.label}
+                </button>
+              ) : (
+                <span
+                  style={linkStyle}
+                  onClick={() => navigate(link.path)}
+                >
+                  {link.label}
+                </span>
+              )}
             </li>
-          )}
+          ))}
         </ul>
       )}
 
+      {/* Mobile Hamburger */}
       {isMobile && (
         <div style={hamburgerStyle} onClick={() => setMenuOpen(!menuOpen)}>
           <span style={barStyle}></span>
@@ -172,45 +154,38 @@ const Navbar = () => {
         </div>
       )}
 
+      {/* Mobile Menu */}
       {isMobile && (
         <ul style={mobileMenuStyle}>
-          {activeLinks.map((link, i) => {
-            const isButton =
-              [translations.aboutTitle, translations.contactTitle, "Login", "Register"].includes(link.label);
-            return (
-              <li key={i} style={{ marginBottom: "0.5rem" }}>
-                {isButton ? (
-                  <button
-                    style={{ ...linkButtonStyle, width: "100%" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = linkButtonHoverStyle.opacity)}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
-                    onClick={() => {
-                      setMenuOpen(false);
-                      navigate(link.path);
-                    }}
-                  >
-                    {link.label}
-                  </button>
-                ) : (
-                  <span
-                    style={linkStyle}
-                    onClick={() => {
-                      setMenuOpen(false);
-                      navigate(link.path);
-                    }}
-                  >
-                    {link.label}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-
-          {user && (
-            <li>
-              <LogoutButton />
+          {links.map((link, i) => (
+            <li key={i} style={{ marginBottom: "0.5rem" }}>
+              {link.isButton ? (
+                <button
+                  style={{ ...linkButtonStyle, width: "100%" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.opacity = linkButtonHoverStyle.opacity)
+                  }
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    navigate(link.path);
+                  }}
+                >
+                  {link.label}
+                </button>
+              ) : (
+                <span
+                  style={linkStyle}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    navigate(link.path);
+                  }}
+                >
+                  {link.label}
+                </span>
+              )}
             </li>
-          )}
+          ))}
         </ul>
       )}
     </nav>

@@ -1,45 +1,69 @@
+// HeroSection.js
 import React, { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
-import Chatbot from "../components/ChatBot/Chatbot"; // no extra spaces
-
+import Chatbot from "../components/ChatBot/Chatbot";
 
 function HeroSection() {
   const { language, setLanguage, translations } = useLanguage();
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [hoveredLang, setHoveredLang] = useState(null);
- 
-  
 
+  const toggleLanguageOptions = () => setShowLanguageOptions(!showLanguageOptions);
+
+  const handleLanguageSelect = (lang) => {
+    setLanguage(lang);
+    setShowLanguageOptions(false);
+  };
+
+  const langMap = { English: "en", Hindi: "hi", Marathi: "mr", Odia: "or" };
+  const selectedLang = langMap[language] || "en";
+
+  // Hero section styles
   const heroStyle = {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "center",
+    paddingTop: "100px", // leave space for navbar
     height: "100vh",
     width: "100%",
     textAlign: "center",
-    padding: "0 20px",
-    paddingTop: "150px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     position: "relative",
-    backgroundImage: "url('/dan-meyers-IQVFVH0ajag-unsplash.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundAttachment: "fixed",
+    overflow: "hidden",
+  };
+
+  const videoStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    zIndex: 0,
+  };
+
+  const overlayStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.4)", // keep overlay as before
+    backdropFilter: "blur(2px)",
+    zIndex: 1,
   };
 
   const headingStyle = {
     fontSize: "3rem",
-    marginBottom: "5px",
-    color: "#b6ff5c",
-    textShadow: "2px 2px 6px rgba(0,0,0,0.9)",
+    color: "#FFE100", // text color updated
+    zIndex: 2,
   };
 
   const textStyle = {
     fontSize: "1.3rem",
-    color: "#e8ffb5",
-    textShadow: "1px 1px 5px rgba(0,0,0,0.8)",
+    color: "#FFE100", // text color updated
+    zIndex: 2,
   };
 
   const buttonStyle = {
@@ -52,6 +76,7 @@ function HeroSection() {
     cursor: "pointer",
     marginTop: "20px",
     transition: "background-color 0.3s ease",
+    zIndex: 2,
   };
 
   const buttonHoverStyle = {
@@ -65,7 +90,7 @@ function HeroSection() {
     transform: "translate(-50%, -50%)",
     display: "flex",
     gap: "10px",
-    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    backgroundColor: "rgba(255,255,255,0.95)",
     padding: "20px",
     borderRadius: "10px",
     boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
@@ -87,26 +112,26 @@ function HeroSection() {
     backgroundColor: "#1b5e20",
   };
 
-  const toggleLanguageOptions = () => {
-    setShowLanguageOptions(!showLanguageOptions);
-  };
-
-  const handleLanguageSelect = (lang) => {
-    setLanguage(lang);
-    setShowLanguageOptions(false);
-  };
-
-  // Map HeroSection language to Chatbot language keys
-  const langMap = { English: "en", Hindi: "hi", Marathi: "mr", Odia: "or" };
-  const selectedLang = langMap[language] || "en"; // fallback to English
-
   return (
     <>
       <section style={heroStyle}>
+        {/* Video Background */}
+        <video
+          style={videoStyle}
+          src="/Recording 2025-09-23 145606.mp4"
+          autoPlay
+          loop
+          muted
+        />
+
+        {/* Overlay */}
+        <div style={overlayStyle}></div>
+
+        {/* Heading and description */}
         <h1 style={headingStyle}>{translations.welcome}</h1>
         <p style={textStyle}>{translations.description}</p>
 
-        {/* Language Button */}
+        {/* Language selector button */}
         <button
           onClick={toggleLanguageOptions}
           style={hovered ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
@@ -116,7 +141,7 @@ function HeroSection() {
           {translations.chooseLang}
         </button>
 
-        {/* Language Options */}
+        {/* Language options */}
         {showLanguageOptions && (
           <div style={languageOptionsStyle}>
             {["English", "Hindi", "Marathi", "Odia"].map((lang) => (
@@ -138,10 +163,8 @@ function HeroSection() {
         )}
       </section>
 
-      {/* Pass selectedLang (mapped key) to Chatbot */}
-      <div>
-        <Chatbot language={selectedLang} />
-      </div>
+      {/* Chatbot */}
+      <Chatbot language={selectedLang} />
     </>
   );
 }

@@ -25,14 +25,13 @@
 //   );
 // }
 
-
-
 // src/components/LogoutButton.js
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 const LogoutButton = () => {
   const [auth, setAuth] = useAuth();
+  const [hover, setHover] = useState(false);
 
   const handleLogout = () => {
     setAuth({ user: null, token: "" });
@@ -40,18 +39,26 @@ const LogoutButton = () => {
     window.location.href = "/login"; // redirect to login page
   };
 
+  // Same style theme as navbar
+  const highlightColor = "#FFE100"; // yellow
+  const linkButtonStyle = {
+    backgroundColor: highlightColor,
+    color: "#000",
+    border: "none",
+    padding: "0.35rem 0.8rem",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    transition: "opacity 0.2s ease",
+    ...(hover && { opacity: 0.8 }), // hover effect
+  };
+
   return (
     <button
       onClick={handleLogout}
-      style={{
-        padding: "0.4rem 0.8rem",
-        borderRadius: "6px",
-        border: "none",
-        cursor: "pointer",
-        fontWeight: "bold",
-        color: "white",
-        backgroundColor: "#22c55e",
-      }}
+      style={linkButtonStyle}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
       Logout
     </button>
@@ -59,4 +66,3 @@ const LogoutButton = () => {
 };
 
 export default LogoutButton;
-

@@ -9,12 +9,11 @@ import Footer from "./components/Footer";
 import SoilReportUpload from "./components/SoilReportUpload";
 import { useLanguage } from "./context/LanguageContext";
 import MobileLogin from './components/MobileLogin';
+import RegistrationForm from "./components/RegistrationForm";
 import UploadSoil from './components/UploadSoil';
 import './App.css'
-import RegistrationForm from "./components/RegistrationForm";
 import Login from "./components/Login";
-import LogoutButton from "./components/LogoutButton";
-
+import Prediction from "./components/Prediction";
 
 const About = () => {
   const { translations } = useLanguage();
@@ -58,7 +57,7 @@ function App() {
           }
         `}
       </style>
-          
+
       <Navbar />
 
       <div>
@@ -68,9 +67,9 @@ function App() {
             element={
               <>
                 <HeroSection />
-                <CropInfo />
+                {/* <CropInfo /> */}
                 <WeatherInfo />
-                <SoilReportUpload />
+                {/* <SoilReportUpload /> */}
                 <FarmingTips />
                 <Footer />
               </>
@@ -80,10 +79,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registation" element={<RegistrationForm />} />
-          <Route path="/logout" element={<LogoutButton />} />
-          <Route path="/registation" element={<RegistrationForm />} />
-
-
+          <Route path="/prediction" element={<Prediction />} />
           <Route path="/soile" element={<UploadSoil />} />
 
 

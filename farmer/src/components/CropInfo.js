@@ -15,17 +15,32 @@ function CropInfo() {
   ];
 
   return (
-    <section style={{ padding: "2rem", background: "#f0fdf4", color: "#14532d" }}>
-      <h2 style={{ textAlign: "center", color: "#166534", marginBottom: "2rem" }}>
+    <section
+      style={{
+        padding: "2rem",
+        color: "#FBF5DE", // off-white text
+        backgroundColor: "#3E5F44", // dark green background
+        minHeight: "100vh",
+      }}
+    >
+      <h2 style={{ textAlign: "center", color: "#FBF5DE", marginBottom: "2rem" }}>
         {translations.mainCrops}
       </h2>
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "1.5rem" }}>
+
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "1.5rem",
+        }}
+      >
         {crops.map((crop, index) => (
           <div
             key={index}
             style={{
-              background: index % 2 === 0 ? "#22c55e" : "#16a34a",
-              color: "#fff",
+              backgroundColor: "#FBF5DE", // cream cards
+              color: "#3E5F44", // dark green text
               padding: "1.5rem",
               borderRadius: "12px",
               minWidth: "140px",

@@ -23,7 +23,7 @@ function WeatherSoilSection() {
   const [uploading, setUploading] = useState(false);
   const [soilError, setSoilError] = useState("");
   const [auth] = useAuth();
-  console.log(auth.user.id);
+  // console.log(auth.user.id);
   // 📌 Weather fetch
   useEffect(() => {
     if (!navigator.geolocation) {

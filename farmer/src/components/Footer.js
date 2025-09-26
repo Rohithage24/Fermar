@@ -2,49 +2,28 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer
-      style={{
-        backgroundColor: "#babda0ff", // dark green
-        color: "black",
-        padding: "1.5rem",
-        textAlign: "center",
-        marginTop: "2rem",
-      }}
-    >
-      <p style={{ margin: 0, fontSize: "1rem" }}>
-        🌱 Farmer’s Portal | Empowering Farmers with Information
-      </p>
-      <p style={{ margin: "0.5rem 0 0", fontSize: "0.9rem", opacity: 0.8 }}>
-        © {new Date().getFullYear()} All Rights Reserved
-      </p>
+    <footer className="app-footer">
+      <div className="footer-container">
+        {/* Main tagline/brand emphasis */}
+        <p className="footer-tagline">
+          🌱 AgroSanga | Empowering Farmers with AI-Powered Insights
+        </p>
+
+        {/* Navigation/Links Placeholder (Optional, uncomment if adding links) */}
+        <div className="footer-links">
+          <a href="/about" className="footer-link">About Us</a>
+          <a href="/contact" className="footer-link">Contact</a>
+          <a href="/privacy" className="footer-link">Privacy Policy</a>
+        </div>
+       
+
+        {/* Copyright */}
+        <p className="footer-copy">
+          © {new Date().getFullYear()} AgroSanga. All Rights Reserved.
+        </p>
+      </div>
     </footer>
   );
 }
 
 export default Footer;
-
-
-// import React from "react";
-
-// function Footer() {
-//   return (
-//     <footer
-//       style={{
-//         backgroundColor: "#166534", // dark green
-//         color: "white",
-//         padding: "1.5rem",
-//         textAlign: "center",
-//         marginTop: "2rem",
-//       }}
-//     >
-//       <p style={{ margin: 0, fontSize: "1rem" }}>
-//         🌱 Farmer’s Portal | Empowering Farmers with Information
-//       </p>
-//       <p style={{ margin: "0.5rem 0 0", fontSize: "0.9rem", opacity: 0.8 }}>
-//         © {new Date().getFullYear()} All Rights Reserved
-//       </p>
-//     </footer>
-//   );
-// }
-
-// export default Footer;

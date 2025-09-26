@@ -1,0 +1,90 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  background: url("../assets/hero-farming.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.hero-content {
+  position: relative;
+  max-width: 900px;
+  padding: 20px;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  margin-bottom: 40px;
+}
+
+.primary-btn {
+  background: #198754;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.primary-btn:hover {
+  background: #146c43;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: #198754;
+  border: 2px solid #198754;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+  background: #198754;
+  color: white;
+}
+
+.scroll-down {
+  margin-top: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.9;
+}

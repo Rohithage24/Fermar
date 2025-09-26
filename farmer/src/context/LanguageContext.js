@@ -4,6 +4,7 @@ const LanguageContext = createContext();
 
 const translationsData = {
   English: {
+    title: "AgroSanga",
     welcome: "Welcome to Farmer Portal",
     description: "Your AI-powered assistant for crop yield prediction & optimization.",
     chooseLang: "Choose Language",
@@ -55,6 +56,7 @@ const translationsData = {
 
   // Add the same dummy weather/soil structure for other languages
   Hindi: {
+    title: "एग्रोसंगा",
     welcome: "किसान पोर्टल में आपका स्वागत है",
     description: "फसल उत्पादन भविष्यवाणी और अनुकूलन के लिए आपका एआई सहायक।",
     chooseLang: "भाषा चुनें",
@@ -105,6 +107,7 @@ const translationsData = {
   },
 
   Marathi: {
+    title : "ॲग्रोसंगा",
     welcome: "शेतकरी पोर्टल मध्ये आपले स्वागत आहे",
     description: "पिकाच्या उत्पादनाची भाकीत व अनुकूलनासाठी तुमचा एआय सहाय्यक.",
     chooseLang: "भाषा निवडा",
@@ -155,6 +158,7 @@ const translationsData = {
   },
 
   Odia: {
+    title:"ଏଗ୍ରୋସଙ୍ଗା",
     welcome: "କୃଷକ ପୋର୍ଟାଲ୍‌କୁ ସ୍ୱାଗତ",
     description: "ଆପଣଙ୍କର ପକ୍ଷୀଚାଷ ଉତ୍ପାଦନ ପୂର୍ବାନୁମାନ ଏବଂ ସୁଧାରଣ ପାଇଁ AI ସହାୟକ।",
     chooseLang: "ଭାଷା ବାଛନ୍ତୁ",

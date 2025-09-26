@@ -1,0 +1,197 @@
+/*==================================
+  YIELD PREDICTION PAGE STYLES
+==================================*/
+
+/* 1. Page Background and Layout */
+.min-h-screen {
+  min-height: 100vh;
+  /* Very light green-grey background to match the theme */
+  background-color: hsl(120, 10%, 89%); 
+  padding: 2rem 1rem;
+}
+
+.container.mx-auto {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.space-y-8 > * + * {
+  margin-top: 2rem; 
+}
+
+/* 2. General Inputs & Selects */
+input[type="text"],
+input[type="number"],
+select.input-select {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #a6b8d3;
+  font-size: 1rem;
+  font-family: inherit; 
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.2s;
+  background-color: #ffffff; /* Ensure inputs are white */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select.input-select:focus {
+  border-color: #388E3C; 
+  box-shadow: 0 0 0 3px rgba(56, 142, 60, 0.2);
+}
+
+/* 3. Buttons (btn-agriculture) */
+a.btn-agriculture,
+button.btn-agriculture {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #4CAF50; /* Primary Green */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+a.btn-agriculture:hover:not(:disabled),
+button.btn-agriculture:hover:not(:disabled) {
+  background-color: #388E3C; 
+}
+
+button.btn-agriculture:disabled {
+  background-color: #A5D6A7; 
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* 4. Card Styling */
+.card-natural {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  padding: 24px;
+  color: #000;
+  height: 100%; 
+}
+
+.card-soil-report {
+  background-color: #9cc99f; /* Light green background */
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+  border: 1px solid #c8e6c9; 
+}
+
+.Card{
+  margin: 20px;
+}
+
+/* 5. Typography & Headers */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1B5E20; 
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+
+/* 6. Layout: Two Prediction Cards Side-by-Side */
+/* The container for the form and result cards */
+.two-card {
+  margin: 0;
+  /* Using display: block here ensures it correctly handles the grid child */
+}
+
+/* Applying the grid structure based on JSX classes */
+.grid.md\:grid-cols-2 {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr; /* Default to single column (mobile) */
+}
+
+/* 7. Soil Data Grid (Mini Grids) */
+.soil-data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.soil-data-grid div {
+  background-color: #f0f0f0; 
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+  color: #343a40;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+/* 8. Prediction Result Card Specifics */
+.predicted-yield {
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.predicted-yield p {
+  font-size: 2.5rem; 
+  font-weight: 800;
+  color: #2E7D32; 
+}
+
+.text-success {
+    color: #2E7D32; 
+}
+
+.results-card .soil-data-grid {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+}
+
+.text-muted-foreground {
+    color: #9e9e9e;
+}
+
+/* 9. Back Link Styling */
+a.btn-agriculture.inline-flex {
+    background-color: transparent; 
+    color: #2E7D32;
+    font-weight: 600;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    box-shadow: none;
+}
+
+a.btn-agriculture.inline-flex:hover {
+    color: #4CAF50;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+/* 10. Responsive Layout */
+@media (min-width: 768px) {
+  .grid.md\:grid-cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+    .soil-data-grid {
+        grid-template-columns: 1fr;
+    }
+}

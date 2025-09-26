@@ -1,5 +1,5 @@
 import React from "react";
-import cornIcon from "../icons/corn.png"; // your corn icon
+import cornIcon from "../icons/corn.png";
 import { useLanguage } from "../context/LanguageContext";
 
 function CropInfo() {
@@ -15,57 +15,19 @@ function CropInfo() {
   ];
 
   return (
-    <section
-      style={{
-        padding: "2rem",
-        color: "#FBF5DE", // off-white text
-        backgroundColor: "#3E5F44", // dark green background
-        minHeight: "100vh",
-      }}
-    >
-      <h2 style={{ textAlign: "center", color: "#FBF5DE", marginBottom: "2rem" }}>
-        {translations.mainCrops}
-      </h2>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "1.5rem",
-        }}
-      >
+    <section className="crop-section">
+      <h2 className="crop-title">{translations.mainCrops}</h2>
+      <div className="crop-grid">
         {crops.map((crop, index) => (
-          <div
-            key={index}
-            style={{
-              backgroundColor: "#FBF5DE", // cream cards
-              color: "#3E5F44", // dark green text
-              padding: "1.5rem",
-              borderRadius: "12px",
-              minWidth: "140px",
-              textAlign: "center",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              cursor: "pointer",
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.25)";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 4px 10px rgba(0,0,0,0.15)";
-            }}
-          >
-            <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
+          <div key={index} className="crop-card">
+            <div className="crop-icon">
               {crop.name === translations.crops.corn ? (
-                <img src={crop.icon} alt={crop.name} style={{ height: "60px", objectFit: "contain" }} />
+                <img src={crop.icon} alt={crop.name} className="corn-img" />
               ) : (
-                crop.icon
+                <span className="emoji-icon">{crop.icon}</span>
               )}
             </div>
-            <p style={{ fontSize: "1.1rem", fontWeight: "500" }}>{crop.name}</p>
+            <p className="crop-name">{crop.name}</p>
           </div>
         ))}
       </div>

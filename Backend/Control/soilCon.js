@@ -149,7 +149,9 @@ exports.uploadImage = [
     try {
       if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
 
-      const { userID } = req.body; // ✅ get userID from formData
+      const { userID } = req.body;
+      console.log(userID);
+       // ✅ get userID from formData
 
       const formData = new FormData();
       formData.append("file", fs.createReadStream(req.file.path));
@@ -179,6 +181,8 @@ exports.uploadImage = [
         soilReportId: soilReport._id,
       });
     } catch (err) {
+      console.log(err);
+      
       console.error("Upload error:", err.message);
       res.status(500).json({ error: err.message });
     }

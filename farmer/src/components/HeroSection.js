@@ -9,6 +9,10 @@ function HeroSection() {
   const langMap = { English: "en", Hindi: "hi", Marathi: "mr", Odia: "or" };
   const selectedLang = langMap[language] || "en";
 
+
+  console.log(process.env.REACT_APP_BACKEND_URL);
+  
+
   return (
     <>
     <section className="hero">

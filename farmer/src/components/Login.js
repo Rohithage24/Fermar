@@ -31,7 +31,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/login",
+        `${process.env.REACT_APP_BACKEND_URL}/login`,
         { mobile, password },
         { withCredentials: true }
       );
@@ -115,7 +115,7 @@ export default Login;
 
 //     try {
 //       const res = await axios.post(
-//         "http://localhost:5000/login",
+//         "${process.env.REACT_APP_BACKEND_URL}/login",
 //         { mobile, password },
 //         { withCredentials: true }
 //       );

@@ -4,7 +4,7 @@
 // function LogoutButton({ onLogout }) {
 //   const handleLogout = async () => {
 //     try {
-//       await fetch("http://localhost:5000/logout", {
+//       await fetch("${process.env.REACT_APP_BACKEND_URL}/logout", {
 //         method: "POST",
 //         credentials: "include", // send cookies
 //       });

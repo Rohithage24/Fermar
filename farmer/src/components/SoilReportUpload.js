@@ -42,7 +42,7 @@ function SoilReportUpload() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://localhost:5000/soil-Reprot", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/soil-Reprot`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setSoilData(response.data.soil_data);
@@ -65,7 +65,7 @@ function SoilReportUpload() {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/preduct", {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/preduct`, {
         cropType,
         season,
         soilMoisture,

@@ -1,6 +1,8 @@
 // controllers/predictionController.js
 const axios = require("axios");
 const Prediction = require("../model/pridation");
+require("dotenv").config();
+
 
 exports.savePrediction = async (req, res) => {
   try {
@@ -39,7 +41,7 @@ exports.savePrediction = async (req, res) => {
     };
 
     const fastApiRes = await axios.post(
-      "http://127.0.0.1:8000/predict-yield/",
+      `${process.env.PYTHON_PREDATION_URL}/predict-yield/`,
       payload
     );
 

@@ -63,7 +63,7 @@ const YieldPrediction = () => {
         userID: auth?.user?.id,
       };
 
-      const res = await fetch("http://localhost:5000/preduct", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/preduct`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

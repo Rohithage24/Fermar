@@ -79,7 +79,7 @@ const WeatherSoilSection = () => {
     formData.append("userID", auth.user.id);
 
     try {
-      const res = await axios.post("http://localhost:5000/soil-Reprot", formData, {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/soil-Reprot`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (e) => {
           setProgress(Math.round((e.loaded / e.total) * 100));

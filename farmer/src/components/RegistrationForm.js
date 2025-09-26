@@ -53,7 +53,7 @@ const RegistrationForm = () => {
       }
 
       // API call (update with your backend URL)
-      const res = await axios.post("http://localhost:5000/register", formData);
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/register`, formData);
 
       setMessage(res.data.msg || "Registration successful!");
       setMessageType("success");

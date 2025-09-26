@@ -17,7 +17,7 @@ const MobileLogin = () => {
     if (!mobile) return alert("Enter mobile number");
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/send-otp", { mobile });
+      const res = await axios.post("${process.env.REACT_APP_BACKEND_URL}/send-otp", { mobile });
       setUserId(res.data.userId);
       setOtpSent(true);
       setMessage(`OTP sent to ${mobile}`);
@@ -34,7 +34,7 @@ const MobileLogin = () => {
     if (!otp) return alert("Enter OTP");
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/verify-otp", {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/verify-otp`, {
         userId,
         otp,
       });

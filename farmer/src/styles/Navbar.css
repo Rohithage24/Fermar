@@ -115,6 +115,7 @@
 }
 
 /* 5. Login/Logout Button Styling */
+/* 5. Login/Logout Button Styling */
 .btn-success {
     /* The distinctive green button */
     background-color: #388E3C !important; 
@@ -126,6 +127,69 @@
     margin-left: 1rem; 
     transition: background-color 0.3s;
     cursor: pointer;
+}
+
+
+/*==================================
+  NAVBAR STYLES
+  ... (Keep all styles above the @media query as they were)
+==================================*/
+
+/* 6. Mobile Toggler and Responsiveness */
+/* ... (Keep existing toggler styles) ... */
+
+@media (max-width: 991px) {
+    /* 1. Center all buttons/links */
+    .navbar-nav {
+        /* Set the container to occupy full width and center its contents */
+        width: 100%;
+        align-items: center; /* Center items horizontally (if using flex-direction: column which Bootstrap implies) */
+        /* If a column layout is enforced, you might need text-align: center; or margin: auto;
+           but align-items: center usually works when Bootstrap's collapse changes flex direction */
+        
+        /* Force items to stack (Bootstrap's collapse usually does this) */
+        flex-direction: column; 
+    }
+    
+    /* 2. Set 120px width for all interactive elements and center them */
+    .custom-btn,
+    .dropdown,
+    .dropdown-toggle,
+    .btn-success,
+    .dropdown-menu { 
+        /* Enforce fixed width for all clickable elements in the mobile menu */
+        width: 120px !important;
+        
+        /* Center the elements within the navbar-nav container's column */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        
+        /* Reset unnecessary mobile layout properties */
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+    
+    /* The dropdown items should not be 120px wide; they should use the 120px dropdown-menu width */
+    .dropdown-item {
+        /* Reset dropdown item behavior */
+        width: 100%; 
+        text-align: left;
+    }
+    
+    .dropdown-menu {
+        position: static; 
+        box-shadow: none;
+        border: 1px solid rgba(0, 0, 0, 0.15); /* Restore border for clarity */
+        margin-top: 0;
+        /* margin-left and margin-right auto centers the entire dropdown box */
+    }
+    
+    /* Adjust Auth Button margin to remove the ms-3 (margin-start) class effect */
+    .btn-success {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 0.5rem; /* Add some spacing below the button */
+    }
 }
 
 .btn-success:hover {
